@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X, Phone, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/lib/cart';
 
 const links = [
   { href: '/', label: 'Home' },
@@ -17,6 +18,7 @@ const links = [
 export default function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { totalItems, openCart } = useCart();
 
   return (
     <header
@@ -91,6 +93,46 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
+          <button
+            onClick={openCart}
+            aria-label="Open cart"
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--color-border)',
+              borderRadius: '8px',
+              color: 'var(--color-text-muted)',
+              cursor: 'pointer',
+              padding: '0.45rem 0.65rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              position: 'relative',
+              transition: 'border-color 300ms ease, color 300ms ease',
+            }}
+          >
+            <ShoppingCart size={17} />
+            {totalItems > 0 && (
+              <span
+                style={{
+                  background: 'var(--color-gold)',
+                  color: '#000',
+                  borderRadius: '50%',
+                  width: '18px',
+                  height: '18px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '0.62rem',
+                  fontWeight: 800,
+                  position: 'absolute',
+                  top: '-7px',
+                  right: '-7px',
+                }}
+              >
+                {totalItems}
+              </span>
+            )}
+          </button>
           <a
             href="https://calendly.com/edl298965/30min"
             target="_blank"

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, ExternalLink, ShieldCheck, Star } from 'lucide-react';
+import AddToCartButton from '@/components/AddToCartButton';
 
 export const metadata = {
   title: 'The Flesh Robot | Shop — Youngevity Products',
@@ -10,11 +11,12 @@ export const metadata = {
 const products = [
   {
     id: 'hbsp',
+    sku: '10252Q',
+    price: 183.99,
     featured: true,
     name: 'Healthy Body Start Pack',
     badge: 'Most Popular — Start Here',
     badgeColor: 'var(--color-green)',
-    price: 'Contact for Pricing',
     img: '/products/healthy-body-pak-2.5.png',
     desc: 'The complete Mighty 90 — 60 minerals, 16 vitamins, 12 amino acids, and 2–3 essential fatty acids. The non-negotiable foundation for achieving perfect biochemical nutrition.',
     highlights: [
@@ -30,6 +32,9 @@ const products = [
 
 const supplements = [
   {
+    id: 'btt',
+    sku: 'USYG100075',
+    price: 86.99,
     name: 'Beyond Tangy Tangerine 2.0',
     category: 'Foundation Nutrition',
     color: '#fbbf24',
@@ -38,6 +43,9 @@ const supplements = [
     tags: ['Antioxidant', 'Multi-Nutrient', 'Daily Foundation'],
   },
   {
+    id: 'osteo',
+    sku: 'USYG103211',
+    price: 60.99,
     name: 'Beyond Osteo-FX™',
     category: 'Bone & Joint',
     color: '#60a5fa',
@@ -46,6 +54,9 @@ const supplements = [
     tags: ['Calcium', 'Magnesium', 'D3', 'Bone Health'],
   },
   {
+    id: 'selenium',
+    sku: '20971',
+    price: 38.99,
     name: 'Ultimate Selenium',
     category: 'Heart & Antioxidant',
     color: '#f87171',
@@ -54,6 +65,9 @@ const supplements = [
     tags: ['Heart Health', 'Antioxidant', 'Selenium'],
   },
   {
+    id: 'msm',
+    sku: 'USFL000123',
+    price: 54.99,
     name: 'MSM Ultra',
     category: 'Connective Tissue',
     color: '#34d399',
@@ -62,6 +76,9 @@ const supplements = [
     tags: ['Sulfur', 'Joint Repair', 'Cartilage'],
   },
   {
+    id: 'daily-classic',
+    sku: 'USYG100084',
+    price: 54.99,
     name: 'Ultimate Daily Classic™',
     category: 'Circulation & Kidneys',
     color: '#a78bfa',
@@ -70,6 +87,9 @@ const supplements = [
     tags: ['Circulation', 'Kidney Health', 'Cardiovascular'],
   },
   {
+    id: 'fucoidz',
+    sku: '3005',
+    price: 54.99,
     name: 'Fucoid Z',
     category: 'Blood Purification',
     color: '#06b6d4',
@@ -78,6 +98,9 @@ const supplements = [
     tags: ['Blood Purification', 'Gut Repair', 'Seaweed Extract'],
   },
   {
+    id: 'sweeteze',
+    sku: '21014',
+    price: 36.99,
     name: 'SweetEZE',
     category: 'Blood Sugar',
     color: '#fbbf24',
@@ -86,6 +109,9 @@ const supplements = [
     tags: ['Blood Sugar', 'Botanical', 'Insulin Support'],
   },
   {
+    id: 'microbiome',
+    sku: 'USYG300004',
+    price: 74.99,
     name: 'Ultimate Microbiome',
     category: 'Gut Health',
     color: '#34d399',
@@ -238,23 +264,38 @@ export default function ShopPage() {
                   ))}
                 </div>
 
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <span
+                    style={{
+                      fontFamily: "'Barlow Condensed', sans-serif",
+                      fontWeight: 800,
+                      fontSize: '1.8rem',
+                      color: 'var(--color-gold)',
+                      letterSpacing: '-0.01em',
+                    }}
+                  >
+                    ${p.price.toFixed(2)}
+                  </span>
+                  <span
+                    style={{
+                      marginLeft: '0.6rem',
+                      color: 'var(--color-text-muted)',
+                      fontSize: '0.8rem',
+                    }}
+                  >
+                    retail
+                  </span>
+                </div>
                 <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                  <AddToCartButton id={p.id} name={p.name} sku={p.sku} price={p.price} />
                   <a
                     href="https://calendly.com/edl298965/30min"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-gold"
+                    className="btn-outline"
                   >
                     Order via Consultation
                     <ExternalLink size={15} />
-                  </a>
-                  <a
-                    href="https://www.youngevity.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-outline"
-                  >
-                    Shop Youngevity Directly
                   </a>
                 </div>
               </div>
@@ -312,7 +353,7 @@ export default function ShopPage() {
                 <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <h3 style={{ fontSize: '1.1rem', color: 'var(--color-text)', marginBottom: '0.6rem' }}>{s.name}</h3>
                   <p style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem', lineHeight: 1.6, flex: 1, marginBottom: '1rem' }}>{s.desc}</p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1rem' }}>
                     {s.tags.map((tag) => (
                       <span
                         key={tag}
@@ -328,6 +369,19 @@ export default function ShopPage() {
                         {tag}
                       </span>
                     ))}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    <span
+                      style={{
+                        fontFamily: "'Barlow Condensed', sans-serif",
+                        fontWeight: 800,
+                        fontSize: '1.15rem',
+                        color: 'var(--color-gold)',
+                      }}
+                    >
+                      ${s.price.toFixed(2)}
+                    </span>
+                    <AddToCartButton id={s.id} name={s.name} sku={s.sku} price={s.price} size="sm" />
                   </div>
                 </div>
               </div>

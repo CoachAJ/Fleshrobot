@@ -3,6 +3,8 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { OrganizationSchema, WebSiteSchema, PersonSchema } from "@/components/JsonLd";
+import { CartProvider } from "@/lib/cart";
+import CartDrawer from "@/components/CartDrawer";
 
 const SITE_URL = "https://thefleshrobot.com";
 
@@ -87,9 +89,12 @@ export default function RootLayout({
         <PersonSchema />
       </head>
       <body style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-        <Nav />
-        <main style={{ flex: 1, paddingTop: "64px" }}>{children}</main>
-        <Footer />
+        <CartProvider>
+          <Nav />
+          <main style={{ flex: 1, paddingTop: "64px" }}>{children}</main>
+          <Footer />
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );
